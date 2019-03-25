@@ -4,8 +4,9 @@ task checkstyle(type: Checkstyle) {
     description 'Check code standard'
     group 'verification'
     configFile file("${project.rootDir}/tools/checkstyle/rules-checkstyle.xml")
-    source fileTree('src/main/java')
+    source 'src/'
     include '**/*.java'
+    include '**/*.kt'
     exclude '**/gen/**'
 
     classpath = files()
@@ -14,6 +15,6 @@ task checkstyle(type: Checkstyle) {
     reports {
         xml.enabled = true
         html.enabled = true
-        html.destination = "$project.buildDir/outputs/checkstyle/checkstyle.html"
+        html.destination = "$project.buildDir/reports/checkstyle/checkstyle.html"
     }
 }

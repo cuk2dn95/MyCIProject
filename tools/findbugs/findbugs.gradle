@@ -8,7 +8,7 @@ task findbugs(type: FindBugs) {
     reportLevel = "high"
     excludeFilter = file("${project.rootDir}/tools/findbugs/rules-findbugs.xml")
 
-    source 'src'
+    source 'src/'
     include '**/*.java'
     include '**/*.kt'
     exclude '**/gen/**'
@@ -16,8 +16,8 @@ task findbugs(type: FindBugs) {
     classpath = files()
 
     reports {
-        xml.enabled = true
-        html.enabled = false
+        xml.enabled = false
+        html.enabled = true
         html.destination = "${project.buildDir}/reports/findbugs/findbugs.html"
         xml {
             destination "${project.buildDir}/reports/findbugs/findbugs.xml"

@@ -1,0 +1,17 @@
+apply plugin: 'io.gitlab.arturbosch.detekt'
+
+detekt {
+    toolVersion = "1.0.0-RC14"
+    input = files("${rootProject.rootDir}")
+    filters = ".*/resources/.*,.*/build/.*"
+    reports {
+        xml {
+            enabled = true
+            destination = file("${project.buildDir}/reports/detekt/detekt.xml")
+        }
+        html {
+            enabled = true
+            destination = file("${project.buildDir}/reports/detekt/detekt.html")
+        }
+    }
+}
