@@ -23,13 +23,13 @@ android {
     }
     buildTypes {
         release {
-            buildConfigField "String","HOCKEY_APP_KEY",'"8ec56d6c-e26f-44ac-b25c-44b6613d2237"'
+            buildConfigField "String","HOCKEY_APP_KEY",'"22c97b49-51e3-427f-a862-5f509d45450d"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
         debug {
-            buildConfigField "String","HOCKEY_APP_KEY",'"8ec56d6c-e26f-44ac-b25c-44b6613d2237"'
+            buildConfigField "String","HOCKEY_APP_KEY",'"22c97b49-51e3-427f-a862-5f509d45450d"'
             testCoverageEnabled true
         }
     }
@@ -47,6 +47,7 @@ dependencies {
     def appCenterSdkVersion = '1.11.4'
     implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
     implementation "com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}"
+    implementation "com.microsoft.appcenter:appcenter-distribute:${appCenterSdkVersion}"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:28.0.0'
