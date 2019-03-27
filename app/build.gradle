@@ -16,7 +16,7 @@ android {
         applicationId "com.example.truongquockhanh.myciproject"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode System.getenv("BUILD_NUMBER") as Integer ?: 10001
+        versionCode 1
         binding.properties
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
