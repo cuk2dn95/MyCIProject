@@ -16,11 +16,13 @@ task findbugs(type: FindBugs) {
     classpath = files()
 
     reports {
-        xml.enabled = false
-        html.enabled = true
-        html.destination = "${project.buildDir}/reports/findbugs/findbugs.html"
         xml {
-            destination "${project.buildDir}/reports/findbugs/findbugs.xml"
+            enabled = true
+            destination = file("${project.buildDir}/reports/findbugs/findbugs.html")
+        }
+        html {
+            enabled = true
+            destination = file("${project.buildDir}/reports/findbugs/findbugs.xml")
         }
     }
 }
