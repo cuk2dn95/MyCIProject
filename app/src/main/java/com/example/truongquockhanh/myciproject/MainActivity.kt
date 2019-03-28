@@ -2,10 +2,14 @@ package com.example.truongquockhanh.myciproject
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.crashlytics.android.Crashlytics
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
 import com.microsoft.appcenter.distribute.Distribute
+import io.fabric.sdk.android.Fabric
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,5 +23,7 @@ class MainActivity : AppCompatActivity() {
             Crashes::class.java,
             Distribute::class.java
         )
+
+        Fabric.with(this, Crashlytics())
     }
 }

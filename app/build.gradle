@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'io.fabric'
+
 apply from: "$project.rootDir/tools/findbugs/findbugs.gradle"
 apply from: "$project.rootDir/tools/checkstyle/checkstyle.gradle"
 apply from: "$project.rootDir/tools/pmd/pmd.gradle"
@@ -16,7 +18,7 @@ android {
         applicationId "com.example.truongquockhanh.myciproject"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode System.getenv("BUILD_NUMBER") as Integer ?: 10001
+        versionCode 1
         binding.properties
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -43,6 +45,12 @@ android {
     }
 }
 
+task ci {
+    description "Run CI job to check"
+}
+
+ci.dependsOn 'checkstyle','pmd','detekt','lint','jacocoTestReport'
+
 dependencies {
     def appCenterSdkVersion = '1.11.4'
     implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
@@ -55,4 +63,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation ('com.crashlytics.sdk.android:crashlytics:2.9.9@aar') {
+        transitive = true
+    }
 }
