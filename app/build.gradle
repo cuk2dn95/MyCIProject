@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'io.fabric'
+
 apply from: "$project.rootDir/tools/findbugs/findbugs.gradle"
 apply from: "$project.rootDir/tools/checkstyle/checkstyle.gradle"
 apply from: "$project.rootDir/tools/pmd/pmd.gradle"
@@ -11,25 +13,25 @@ apply from: "$project.rootDir/tools/detekt/detekt.gradle"
 apply from: "$project.rootDir/tools/jacoco/jacoco.gradle"
 
 android {
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.truongquockhanh.myciproject"
         minSdkVersion 19
         targetSdkVersion 28
-        compileSdkVersion 28
-        versionCode 1
+        versionCode System.getenv("BUILD_ID") as Integer ?: 100101
         binding.properties
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            buildConfigField "String","HOCKEY_APP_KEY",'"8ec56d6c-e26f-44ac-b25c-44b6613d2237"'
+            buildConfigField "String","HOCKEY_APP_KEY",'"22c97b49-51e3-427f-a862-5f509d45450d"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
         debug {
-            buildConfigField "String","HOCKEY_APP_KEY",'"8ec56d6c-e26f-44ac-b25c-44b6613d2237"'
+            buildConfigField "String","HOCKEY_APP_KEY",'"22c97b49-51e3-427f-a862-5f509d45450d"'
             testCoverageEnabled true
         }
     }
@@ -43,10 +45,17 @@ android {
     }
 }
 
+task ci {
+    description "Run CI job to check"
+}
+
+ci.dependsOn 'checkstyle','pmd','detekt','lint','jacocoTestReport'
+
 dependencies {
     def appCenterSdkVersion = '1.11.4'
     implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
     implementation "com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}"
+    implementation "com.microsoft.appcenter:appcenter-distribute:${appCenterSdkVersion}"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:28.0.0'
@@ -54,4 +63,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation ('com.crashlytics.sdk.android:crashlytics:2.9.9@aar') {
+        transitive = true
+    }
 }
